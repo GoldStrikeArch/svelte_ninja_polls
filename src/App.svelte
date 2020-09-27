@@ -1,23 +1,24 @@
 <script>
-  let count = 0;
-  function handleClick() {
-    count++;
-  }
+  //componentes imports
+  import Header from "./components/Header/Header.svelte";
+  import Footer from "./components/Footer/Footer.svelte";
+  import Tabs from "./components/Shared/Tabs.svelte";
+  import PollList from "./components/PollList/PollList.svelte";
+  import CreateNewPollForm from "./components/CreateNewPollForm/CreateNewPollForm.svelte";
 
-  let disabled = false;
+  let items = ["Current Polls", "Create New Poll Form"];
+  let activeItem = "Current Polls";
 </script>
 
-<style>
-  .disabled {
-    background: gray;
-  }
-</style>
-
-<main class="bg-red-700">
-  <button
-    class="font-bold py-2 px-4 rounded bg-blue-400"
-    on:click={handleClick}>
-    Click
-  </button>
-  <p>{count}</p>
-</main>
+<Header />
+<div class="container mx-auto px-4">
+  <main>
+    <Tabs {items} bind:activeItem />
+    {#if activeItem === 'Current Polls'}
+      <PollList />
+    {:else if activeItem === 'Create New Poll Form'}
+      <CreateNewPollForm bind:activeItem />
+    {/if}
+  </main>
+  <Footer />
+</div>
